@@ -1,0 +1,1842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f9fc" />
+    <meta
+      name="description"
+      content="Generate creative business names, catchy slogans, logo ideas, and color palettes for your next brand. Save your favorites for later."
+    />
+    <title>Brandwell — Free Brand Name & Idea Generator</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Brandwell Brand Name Generator",
+        "description": "A free browser-based tool for generating business names, slogans, logo concepts, and color palette ideas.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8f9fc;
+        --surface: #ffffff;
+        --surface-soft: #f5f6fa;
+        --text: #202333;
+        --muted: #73798b;
+        --border: #e8eaf1;
+        --primary: #6357e8;
+        --primary-dark: #5146d1;
+        --primary-soft: #f0eeff;
+        --shadow: 0 10px 35px rgba(38, 43, 74, 0.055);
+        --radius: 18px;
+      }
+      [data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #11131c;
+        --surface: #1b1e2a;
+        --surface-soft: #242735;
+        --text: #f2f3fa;
+        --muted: #a2a7b9;
+        --border: #303442;
+        --primary: #9a90ff;
+        --primary-dark: #b5adff;
+        --primary-soft: #302b50;
+        --shadow: 0 10px 35px rgba(0, 0, 0, 0.16);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      select {
+        cursor: pointer;
+      }
+      button {
+        color: inherit;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      svg {
+        display: block;
+      }
+      :focus-visible {
+        outline: 3px solid #a39aff;
+        outline-offset: 3px;
+      }
+      .container {
+        width: min(1160px, calc(100% - 40px));
+        margin-inline: auto;
+      }
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+      }
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: #6558e8;
+        color: white;
+      }
+      .nav-links,
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+      .nav-actions {
+        gap: 12px;
+      }
+      .icon-button,
+      .saved-button {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
+      }
+      .icon-button {
+        width: 38px;
+        height: 38px;
+      }
+      .icon-button:hover,
+      .saved-button:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+      .saved-button {
+        gap: 7px;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .count {
+        min-width: 19px;
+        height: 19px;
+        padding: 0 5px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 6px;
+        color: var(--primary);
+        background: var(--primary-soft);
+        font-size: 10px;
+      }
+      .hero {
+        text-align: center;
+        padding: 58px 0 28px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 10px;
+        border: 1px solid #e1ddff;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        max-width: 720px;
+        margin: 17px auto 12px;
+        font-size: clamp(35px, 5.2vw, 57px);
+        line-height: 1.08;
+        letter-spacing: -0.055em;
+      }
+      .hero h1 span {
+        color: var(--primary);
+      }
+      .hero p {
+        max-width: 560px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .ad {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 1px dashed #ccd0dd;
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--surface) 55%, transparent);
+        color: var(--muted);
+      }
+      .ad-label {
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+      .ad-size {
+        margin-top: 3px;
+        font-size: 11px;
+        opacity: 0.75;
+      }
+      .ad-wide {
+        width: min(728px, 100%);
+        min-height: 90px;
+        margin-inline: auto;
+      }
+      .hero-ad {
+        margin-top: 30px;
+      }
+      .workspace {
+        padding: 25px 0 35px;
+      }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 17px;
+      }
+      .section-heading h2,
+      .results-heading h2 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: -0.035em;
+      }
+      .section-heading p,
+      .results-heading p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .step-tag {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .generator-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 18px;
+        align-items: stretch;
+      }
+      .generator-card {
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr 1fr;
+        gap: 14px;
+      }
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 12px;
+        font-weight: 750;
+      }
+      .optional {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .field-wrap {
+        position: relative;
+      }
+      .field-icon {
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9a9fac;
+        pointer-events: none;
+      }
+      input,
+      select {
+        width: 100%;
+        height: 45px;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        outline: none;
+        background: var(--surface);
+        color: var(--text);
+        transition:
+          border 0.2s,
+          box-shadow 0.2s;
+      }
+      input {
+        padding: 0 12px 0 38px;
+      }
+      input::placeholder {
+        color: #a8adba;
+      }
+      select {
+        padding: 0 34px 0 12px;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a90a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+      }
+      input:focus,
+      select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--primary-soft);
+      }
+      .form-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-top: 22px;
+      }
+      .helper {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .helper svg {
+        color: #9d94fa;
+        flex: none;
+      }
+      .primary-button {
+        border: 0;
+        border-radius: 9px;
+        background: #6558e8;
+        color: white;
+        font-weight: 750;
+        font-size: 12px;
+        padding: 13px 19px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        box-shadow: 0 5px 13px rgba(99, 87, 232, 0.22);
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+      .primary-button:hover {
+        background: #5347ce;
+        transform: translateY(-1px);
+      }
+      .primary-button:disabled {
+        opacity: 0.75;
+        cursor: wait;
+        transform: none;
+      }
+      .ad-square {
+        min-height: 250px;
+      }
+      .results-section {
+        padding: 18px 0 68px;
+      }
+      .results-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 15px;
+        margin-bottom: 18px;
+      }
+      .results-title-line {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .result-badge {
+        border-radius: 6px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-size: 10px;
+        font-weight: 800;
+        padding: 3px 7px;
+      }
+      .results-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .text-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 9px;
+        padding: 8px 11px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .text-button:hover,
+      .text-button.active {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--primary-soft);
+      }
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+      }
+      .idea-card {
+        min-width: 0;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        padding: 18px;
+        box-shadow: 0 4px 18px rgba(40, 44, 80, 0.025);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      .idea-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
+        border-color: #d6d1ff;
+      }
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .logo-preview {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .favorite {
+        border: 0;
+        background: transparent;
+        color: #adb2c0;
+        padding: 5px;
+        border-radius: 7px;
+      }
+      .favorite:hover,
+      .favorite.is-saved {
+        color: #ef6b87;
+        background: rgba(239, 107, 135, 0.08);
+      }
+      .favorite.is-saved svg {
+        fill: currentColor;
+      }
+      .idea-card h3 {
+        margin: 13px 0 3px;
+        font-size: 17px;
+        letter-spacing: -0.035em;
+        overflow-wrap: anywhere;
+      }
+      .slogan {
+        min-height: 22px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .card-details {
+        margin-top: 18px;
+        padding-top: 13px;
+        border-top: 1px solid var(--border);
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .detail-label {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 650;
+      }
+      .detail-value {
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 700;
+        text-align: right;
+      }
+      .swatches {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .swatch {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid rgba(128, 128, 128, 0.2);
+      }
+      .copy-button {
+        width: 100%;
+        margin-top: 5px;
+        padding: 9px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        font-size: 11px;
+        font-weight: 750;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+      }
+      .copy-button:hover {
+        color: var(--primary);
+        border-color: var(--primary);
+        background: var(--primary-soft);
+      }
+      .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 55px 20px;
+        border: 1px dashed var(--border);
+        border-radius: 15px;
+        background: var(--surface);
+      }
+      .empty-state h3 {
+        margin: 10px 0 4px;
+      }
+      .empty-state p {
+        color: var(--muted);
+        margin: 0;
+      }
+      .loading {
+        grid-column: 1 / -1;
+        min-height: 220px;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .spinner {
+        width: 30px;
+        height: 30px;
+        border: 3px solid var(--primary-soft);
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .content-band {
+        background: var(--surface);
+        border-block: 1px solid var(--border);
+        padding: 70px 0;
+      }
+      .content-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+      }
+      .content-kicker {
+        margin: 0 0 10px;
+        color: var(--primary);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .content-layout h2,
+      .faq-section h2 {
+        margin: 0 0 12px;
+        font-size: clamp(25px, 3vw, 32px);
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+      }
+      .content-layout p,
+      .faq-intro {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .steps {
+        list-style: none;
+        padding: 0;
+        margin: 24px 0 0;
+        display: grid;
+        gap: 19px;
+      }
+      .steps li {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+      }
+      .step-number {
+        flex: none;
+        width: 29px;
+        height: 29px;
+        display: grid;
+        place-items: center;
+        background: var(--primary-soft);
+        color: var(--primary);
+        border-radius: 9px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .steps h3,
+      .tip h3 {
+        margin: 0 0 3px;
+        font-size: 13px;
+      }
+      .steps p,
+      .tip p {
+        margin: 0;
+      }
+      .tip {
+        margin-top: 20px;
+        padding-left: 14px;
+        border-left: 2px solid #dedaff;
+      }
+      .faq-section {
+        padding: 70px 0;
+      }
+      .faq-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 70px;
+      }
+      .faq-intro {
+        max-width: 330px;
+      }
+      .faq-list {
+        border-top: 1px solid var(--border);
+      }
+      details {
+        border-bottom: 1px solid var(--border);
+      }
+      summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 17px 30px 17px 0;
+        position: relative;
+        font-size: 13px;
+        font-weight: 750;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      summary::after {
+        content: "+";
+        position: absolute;
+        right: 2px;
+        top: 13px;
+        color: var(--primary);
+        font-size: 21px;
+        font-weight: 400;
+      }
+      details[open] summary::after {
+        content: "−";
+      }
+      details p {
+        margin: -3px 0 18px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+      }
+      .footer-ad {
+        margin-bottom: 45px;
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+        padding: 25px 0;
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+      .footer-inner .brand {
+        font-size: 16px;
+      }
+      .footer-inner .brand-mark {
+        width: 27px;
+        height: 27px;
+        border-radius: 8px;
+      }
+      .footer-copy {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .toast {
+        position: fixed;
+        z-index: 10;
+        bottom: 24px;
+        left: 50%;
+        transform: translate(-50%, 20px);
+        padding: 11px 17px;
+        border-radius: 10px;
+        background: #242638;
+        color: white;
+        font-size: 12px;
+        font-weight: 650;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @media (max-width: 850px) {
+        .nav-links {
+          display: none;
+        }
+        .generator-layout {
+          grid-template-columns: 1fr;
+        }
+        .ad-square {
+          min-height: 150px;
+        }
+        .results-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .content-layout,
+        .faq-layout {
+          gap: 35px;
+        }
+      }
+      @media (max-width: 600px) {
+        .container {
+          width: min(100% - 28px, 1160px);
+        }
+        .nav {
+          min-height: 64px;
+        }
+        .saved-button {
+          padding-inline: 9px;
+        }
+        .hero {
+          padding-top: 45px;
+        }
+        .hero h1 {
+          font-size: 37px;
+        }
+        .hero p {
+          font-size: 14px;
+        }
+        .generator-card {
+          padding: 19px;
+        }
+        .form-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .form-grid > :first-child {
+          grid-column: 1 / -1;
+        }
+        .form-bottom {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .primary-button {
+          width: 100%;
+        }
+        .results-heading {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .results-actions {
+          width: 100%;
+        }
+        .results-grid {
+          grid-template-columns: 1fr;
+        }
+        .content-band,
+        .faq-section {
+          padding: 50px 0;
+        }
+        .content-layout,
+        .faq-layout {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+      aria-hidden="true"
+    >
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path
+          d="M12 2 14.2 8.8 21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2L12 2Z"
+          fill="currentColor"
+        />
+        <path
+          d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"
+          fill="currentColor"
+        />
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24">
+        <path
+          d="M20.8 4.8a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.4 1-1a5.5 5.5 0 0 0 0-7.8Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path
+          d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle
+          cx="12"
+          cy="12"
+          r="4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+        <path
+          d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle
+          cx="11"
+          cy="11"
+          r="7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+        <path
+          d="m16 16 4 4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24">
+        <rect
+          x="8"
+          y="8"
+          width="11"
+          height="12"
+          rx="2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+        <path
+          d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+      </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path
+          d="M20 7v5h-5M4 17v-5h5M5.5 9A7 7 0 0 1 18 6l2 1M4 17l2 1a7 7 0 0 0 12.5-3"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path
+          d="M5 12h14m-5-5 5 5-5 5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+
+    <header class="site-header">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="Brandwell home">
+          <span class="brand-mark"
+            ><svg width="19" height="19"><use href="#i-spark" /></svg></span
+          >brandwell<span style="color: var(--primary)">.</span>
+        </a>
+        <div class="nav-links">
+          <a href="#generator">Generator</a>
+          <a href="#guide">How it works</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="nav-actions">
+          <button
+            class="saved-button"
+            id="headerSaved"
+            type="button"
+            aria-label="View saved names"
+          >
+            <svg width="16" height="16"><use href="#i-heart" /></svg> Saved
+            <span class="count" id="savedCount">0</span>
+          </button>
+          <button
+            class="icon-button"
+            id="themeToggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            title="Toggle color theme"
+          >
+            <svg width="18" height="18">
+              <use id="themeIcon" href="#i-moon" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <div class="eyebrow">
+          <svg width="13" height="13"><use href="#i-spark" /></svg> A little
+          spark for your big idea
+        </div>
+        <h1>Great brands start with <span>a great name.</span></h1>
+        <p>
+          Turn your idea into a brand worth remembering. Discover original
+          names, slogans, and visual inspiration in seconds.
+        </p>
+        <div
+          class="ad ad-wide hero-ad"
+          aria-label="Advertisement placeholder, 728 by 90"
+        >
+          <span class="ad-label">Advertisement</span
+          ><span class="ad-size">728 × 90</span>
+        </div>
+      </section>
+
+      <section class="workspace container" id="generator">
+        <div class="section-heading">
+          <div>
+            <h2>Let’s find your name</h2>
+            <p>
+              Tell us a little about your idea and we’ll do the brainstorming.
+            </p>
+          </div>
+          <span class="step-tag">Your brand starts here ✦</span>
+        </div>
+        <div class="generator-layout">
+          <form class="generator-card" id="generatorForm">
+            <div class="form-grid">
+              <div>
+                <label for="keyword"
+                  >Your keyword <span class="optional">(optional)</span></label
+                >
+                <div class="field-wrap">
+                  <svg class="field-icon" width="16" height="16">
+                    <use href="#i-search" /></svg
+                  ><input
+                    id="keyword"
+                    type="text"
+                    maxlength="30"
+                    placeholder="e.g. bloom, cloud, brew"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="niche">Your niche</label>
+                <select id="niche">
+                  <option value="tech">Tech & innovation</option>
+                  <option value="fashion">Fashion & beauty</option>
+                  <option value="coffee">Coffee & food</option>
+                  <option value="gaming">Gaming & esports</option>
+                  <option value="fitness">Fitness & wellness</option>
+                  <option value="creative">Creative & design</option>
+                  <option value="general">Something else</option>
+                </select>
+              </div>
+              <div>
+                <label for="style">Brand style</label>
+                <select id="style">
+                  <option value="modern">Modern</option>
+                  <option value="catchy">Catchy</option>
+                  <option value="luxury">Luxury</option>
+                  <option value="minimalist">Minimalist</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-bottom">
+              <div class="helper">
+                <svg width="15" height="15"><use href="#i-spark" /></svg> No
+                sign-up needed. Just good ideas.
+              </div>
+              <button class="primary-button" id="generateButton" type="submit">
+                <svg width="16" height="16"><use href="#i-spark" /></svg>
+                Generate names
+                <svg width="15" height="15"><use href="#i-arrow" /></svg>
+              </button>
+            </div>
+          </form>
+          <div
+            class="ad ad-square"
+            aria-label="Advertisement placeholder, 300 by 250"
+          >
+            <span class="ad-label">Advertisement</span
+            ><span class="ad-size">300 × 250</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="results-section container" id="results">
+        <div class="results-heading">
+          <div>
+            <div class="results-title-line">
+              <h2 id="resultsTitle">Your brand ideas</h2>
+              <span class="result-badge" id="resultCount">18 ideas</span>
+            </div>
+            <p id="resultsDescription">
+              A little inspiration for your next big thing.
+            </p>
+          </div>
+          <div class="results-actions">
+            <button
+              class="text-button"
+              id="filterSaved"
+              type="button"
+              aria-pressed="false"
+            >
+              <svg width="14" height="14"><use href="#i-heart" /></svg> Saved
+              only
+            </button>
+            <button class="text-button" id="refreshButton" type="button">
+              <svg width="14" height="14"><use href="#i-refresh" /></svg>
+              Generate again
+            </button>
+          </div>
+        </div>
+        <div
+          class="results-grid"
+          id="resultsGrid"
+          aria-live="polite"
+          aria-busy="false"
+        ></div>
+      </section>
+
+      <section class="content-band" id="guide">
+        <div class="container content-layout">
+          <div>
+            <p class="content-kicker">From idea to identity</p>
+            <h2>How to use our brand name generator</h2>
+            <p>
+              Whether you’re launching a startup or refreshing an existing
+              business, the right name is a great place to start. Find a
+              direction that feels like you in three simple steps.
+            </p>
+            <ol class="steps">
+              <li>
+                <span class="step-number">01</span>
+                <div>
+                  <h3>Tell us about your idea</h3>
+                  <p>
+                    Enter a keyword that captures your vision, or simply choose
+                    the niche that best describes your business.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">02</span>
+                <div>
+                  <h3>Choose your brand’s personality</h3>
+                  <p>
+                    Pick a style, from modern and catchy to luxury or
+                    minimalist, then generate a fresh set of ideas.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">03</span>
+                <div>
+                  <h3>Save what speaks to you</h3>
+                  <p>
+                    Explore names, slogans, logo concepts, and palettes. Tap the
+                    heart to keep your favorites in this browser.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div>
+            <p class="content-kicker">A little expert advice</p>
+            <h2>What makes a great business name?</h2>
+            <p>
+              A thoughtful name is more than a label. It sets expectations,
+              gives people something to remember, and provides a foundation for
+              your visual identity.
+            </p>
+            <div class="tip">
+              <h3>Keep it simple and memorable</h3>
+              <p>
+                Look for a name that’s easy to say, spell, and share. Short,
+                distinctive words are often easier for customers to recall.
+              </p>
+            </div>
+            <div class="tip">
+              <h3>Make room to grow</h3>
+              <p>
+                Choose a name that reflects your personality without boxing your
+                business into one product or a passing trend.
+              </p>
+            </div>
+            <div class="tip">
+              <h3>Do your homework</h3>
+              <p>
+                Before committing, search for existing businesses, trademarks,
+                social handles, and domain availability in your relevant
+                markets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section container" id="faq">
+        <div class="faq-layout">
+          <div>
+            <p class="content-kicker">Good to know</p>
+            <h2>Frequently asked questions</h2>
+            <p class="faq-intro">
+              A few helpful answers for the journey from first idea to finished
+              brand.
+            </p>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>Is the brand name generator free to use?</summary>
+              <p>
+                Yes. You can generate ideas, copy names, and save favorites for
+                free, with no account required.
+              </p>
+            </details>
+            <details>
+              <summary>How are the name ideas generated?</summary>
+              <p>
+                The tool combines your keyword or chosen niche with words and
+                patterns associated with your selected style. Each click
+                shuffles the combinations to give you a new set of ideas.
+              </p>
+            </details>
+            <details>
+              <summary>Can I use these names for my business?</summary>
+              <p>
+                The ideas are a starting point, not a guarantee of availability
+                or ownership. Check business registrations, trademarks, domains,
+                and social handles before choosing a name. Consider professional
+                legal advice when appropriate.
+              </p>
+            </details>
+            <details>
+              <summary>Where are my saved names stored?</summary>
+              <p>
+                Favorites are stored locally in your browser on this device.
+                They won’t automatically sync across devices and may be removed
+                if you clear browser data.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Are the logo and color suggestions final designs?
+              </summary>
+              <p>
+                They’re simple visual prompts to help you explore a direction.
+                Use them as inspiration for a designer or as a starting point
+                for developing your own brand identity.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div
+          class="ad ad-wide footer-ad"
+          aria-label="Advertisement placeholder, 728 by 90"
+        >
+          <span class="ad-label">Advertisement</span
+          ><span class="ad-size">728 × 90</span>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <a class="brand" href="#"
+          ><span class="brand-mark"
+            ><svg width="16" height="16"><use href="#i-spark" /></svg></span
+          >brandwell<span style="color: var(--primary)">.</span></a
+        >
+        <span class="footer-copy"
+          >Made for the ideas that deserve to be out there. ©
+          <span id="year"></span> Brandwell.</span
+        >
+        <a class="footer-copy" href="#generator">Back to the top ↑</a>
+      </div>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        "use strict";
+        const $ = (id) => document.getElementById(id);
+        const storage = {
+          get(key, fallback) {
+            try {
+              const value = localStorage.getItem(key);
+              return value === null ? fallback : JSON.parse(value);
+            } catch (_) {
+              return fallback;
+            }
+          },
+          set(key, value) {
+            try {
+              localStorage.setItem(key, JSON.stringify(value));
+              return true;
+            } catch (_) {
+              return false;
+            }
+          },
+        };
+        const savedData = storage.get("brandwell-favorites", []);
+        let favorites = Array.isArray(savedData)
+          ? savedData.filter(
+              (item) =>
+                item &&
+                typeof item.name === "string" &&
+                Array.isArray(item.palette) &&
+                item.palette.length === 3 &&
+                item.palette.every((color) => /^#[0-9a-f]{6}$/i.test(color)),
+            )
+          : [];
+        let ideas = [];
+        let savedOnly = false;
+        let loading = false;
+        let toastTimer;
+        const niches = {
+          tech: [
+            "Nova",
+            "Circuit",
+            "Pixel",
+            "Cloud",
+            "Spark",
+            "Byte",
+            "Orbit",
+            "Signal",
+            "Nexus",
+            "Logic",
+          ],
+          fashion: [
+            "Muse",
+            "Thread",
+            "Velvet",
+            "Drape",
+            "Luna",
+            "Mode",
+            "Silk",
+            "Form",
+            "Vogue",
+            "Hue",
+          ],
+          coffee: [
+            "Brew",
+            "Bean",
+            "Roast",
+            "Morn",
+            "Crema",
+            "Sip",
+            "Ember",
+            "Cup",
+            "Bloom",
+            "Harvest",
+          ],
+          gaming: [
+            "Quest",
+            "Pixel",
+            "Arcade",
+            "Flux",
+            "Level",
+            "Play",
+            "Echo",
+            "Forge",
+            "Raid",
+            "Boost",
+          ],
+          fitness: [
+            "Pulse",
+            "Motion",
+            "Vital",
+            "Rise",
+            "Flow",
+            "Peak",
+            "Flex",
+            "Stride",
+            "Core",
+            "Thrive",
+          ],
+          creative: [
+            "Canvas",
+            "Muse",
+            "Form",
+            "Studio",
+            "Palette",
+            "Frame",
+            "Craft",
+            "Ink",
+            "Shape",
+            "Story",
+          ],
+          general: [
+            "Bright",
+            "Bloom",
+            "Nest",
+            "Spark",
+            "North",
+            "Ever",
+            "Good",
+            "Kind",
+            "Gather",
+            "Wonder",
+          ],
+        };
+        const styles = {
+          modern: {
+            prefixes: [
+              "Neo",
+              "Nova",
+              "New",
+              "Hyper",
+              "Ultra",
+              "Next",
+              "Open",
+              "True",
+              "Bright",
+              "Future",
+            ],
+            suffixes: [
+              "ly",
+              "Labs",
+              "Works",
+              "Shift",
+              "Wave",
+              "Core",
+              "Space",
+              "Flow",
+              "HQ",
+              "Link",
+              "Grid",
+              "Nest",
+            ],
+          },
+          catchy: {
+            prefixes: [
+              "Hey",
+              "Go",
+              "Happy",
+              "Bold",
+              "Pop",
+              "Super",
+              "Little",
+              "Sunny",
+              "Zippy",
+              "Good",
+            ],
+            suffixes: [
+              "ly",
+              "Pop",
+              "Joy",
+              "Buzz",
+              "Buddy",
+              "Club",
+              "Spark",
+              "Boom",
+              "Loop",
+              "Jam",
+              "Bee",
+              "Rush",
+            ],
+          },
+          luxury: {
+            prefixes: [
+              "Maison",
+              "Rare",
+              "Atelier",
+              "Opal",
+              "Golden",
+              "Royal",
+              "Ivory",
+              "Grand",
+              "Pure",
+              "Velvet",
+            ],
+            suffixes: [
+              "House",
+              "Élan",
+              "Luxe",
+              "Atelier",
+              "Noir",
+              "Gold",
+              "Pearl",
+              "Muse",
+              "Lane",
+              "Society",
+              "Aura",
+              "Cove",
+            ],
+          },
+          minimalist: {
+            prefixes: [
+              "Still",
+              "Mono",
+              "Pure",
+              "One",
+              "Soft",
+              "Form",
+              "Bare",
+              "Calm",
+              "Simply",
+              "North",
+            ],
+            suffixes: [
+              "Co",
+              "One",
+              "Form",
+              "Studio",
+              "Line",
+              "Space",
+              "Lab",
+              "Field",
+              "Point",
+              "Base",
+              "Note",
+              "Kind",
+            ],
+          },
+        };
+        const palettes = [
+          {
+            colors: ["#6558e8", "#dcd8ff", "#f4f2ff"],
+            label: "Electric violet",
+          },
+          { colors: ["#167d72", "#a8d8c6", "#f1f8ed"], label: "Fresh sage" },
+          {
+            colors: ["#dc745b", "#f5c7ad", "#fff2e8"],
+            label: "Warm terracotta",
+          },
+          { colors: ["#1d4962", "#91bcc8", "#e9f2f2"], label: "Coastal blue" },
+          { colors: ["#d45c83", "#f5c6d6", "#fff0f4"], label: "Soft rose" },
+          { colors: ["#ac792d", "#e8d4a9", "#fbf7eb"], label: "Golden hour" },
+          { colors: ["#414256", "#b7b7c6", "#f1f1f5"], label: "Modern slate" },
+          { colors: ["#446e4d", "#b9d1a4", "#eff6e9"], label: "Forest light" },
+        ];
+        const concepts = [
+          "Geometric spark",
+          "Abstract orbit",
+          "Modern monogram",
+          "Simple arch",
+          "Radiant star",
+          "Connected forms",
+        ];
+        const slogans = [
+          "A brighter way forward.",
+          "Made for what’s next.",
+          "Good ideas, made real.",
+          "The beginning of something better.",
+          "Make your mark.",
+          "A fresh take on every day.",
+          "Built for the boldly curious.",
+          "Simply a better way.",
+          "Where ideas come to life.",
+          "A little different. A lot better.",
+          "Made to move you.",
+          "Find your kind of extraordinary.",
+          "Big possibilities start here.",
+          "Thoughtfully made for you.",
+          "Make room for more.",
+          "Designed for brighter days.",
+          "Your next chapter starts here.",
+          "A new kind of wonderful.",
+        ];
+        const shapes = [
+          '<path d="M16 3 19 12l9 4-9 3-3 9-3-9-9-3 9-4 3-9Z" fill="currentColor"/>',
+          '<circle cx="16" cy="16" r="7" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="16" cy="16" rx="13" ry="5.5" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-35 16 16)"/>',
+          '<path d="M6 25 16 6l10 19M10 19h12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>',
+          '<path d="M7 25V15a9 9 0 0 1 18 0v10M12 25V15a4 4 0 0 1 8 0v10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+          '<path d="M16 4v24M4 16h24M7.5 7.5l17 17m0-17-17 17" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+          '<circle cx="11" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="21" cy="20" r="6" fill="none" stroke="currentColor" stroke-width="3"/>',
+        ];
+        function shuffle(array) {
+          const copy = [...array];
+          for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+          }
+          return copy;
+        }
+        function escapeHtml(value) {
+          return String(value).replace(
+            /[&<>"']/g,
+            (ch) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[ch],
+          );
+        }
+        function normalizeKeyword(value) {
+          return value
+            .trim()
+            .replace(/[^\p{L}\p{N}\s-]/gu, "")
+            .replace(/\s+/g, " ")
+            .slice(0, 30);
+        }
+        function titleCase(value) {
+          return value.replace(
+            /(^|[\s-])(\p{L})/gu,
+            (_, space, letter) => space + letter.toLocaleUpperCase(),
+          );
+        }
+        function makeIdeas() {
+          const niche = $("niche").value;
+          const style = styles[$("style").value];
+          const keyword = titleCase(normalizeKeyword($("keyword").value));
+          const roots = keyword ? [keyword] : niches[niche];
+          const candidates = [];
+          roots.forEach((root) => {
+            style.suffixes.forEach((suffix) => {
+              if (root.toLocaleLowerCase() !== suffix.toLocaleLowerCase()) {
+                candidates.push(
+                  suffix === "ly"
+                    ? root + "ly"
+                    : root + (root.includes(" ") ? " " : "") + suffix,
+                );
+                candidates.push(root + " " + suffix);
+              }
+            });
+            style.prefixes.forEach((prefix) => {
+              if (root.toLocaleLowerCase() !== prefix.toLocaleLowerCase()) {
+                candidates.push(
+                  prefix + (root.includes(" ") ? " " : "") + root,
+                );
+                candidates.push(prefix + " " + root);
+              }
+            });
+          });
+          const unique = [];
+          const seen = new Set();
+          shuffle(candidates).forEach((name) => {
+            const key = name.toLocaleLowerCase().replace(/\s+/g, "");
+            if (!seen.has(key)) {
+              seen.add(key);
+              unique.push(name);
+            }
+          });
+          const sloganOrder = shuffle(slogans);
+          return unique.slice(0, 18).map((name, index) => {
+            const palette =
+              palettes[Math.floor(Math.random() * palettes.length)];
+            const shape = Math.floor(Math.random() * shapes.length);
+            return {
+              name,
+              slogan: sloganOrder[index % sloganOrder.length],
+              palette: palette.colors,
+              paletteLabel: palette.label,
+              concept: concepts[shape],
+              shape,
+            };
+          });
+        }
+        function logoMarkup(item) {
+          const shape =
+            Number.isInteger(item.shape) &&
+            item.shape >= 0 &&
+            item.shape < shapes.length
+              ? item.shape
+              : 0;
+          const colors = item.palette;
+          return `<div class="logo-preview" style="background:${colors[2]};color:${colors[0]}" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 32 32">${shapes[shape]}</svg></div>`;
+        }
+        function isFavorite(name) {
+          return favorites.some(
+            (item) =>
+              item.name.toLocaleLowerCase() === name.toLocaleLowerCase(),
+          );
+        }
+        function render() {
+          const list = savedOnly ? favorites : ideas;
+          $("savedCount").textContent = favorites.length;
+          $("filterSaved").classList.toggle("active", savedOnly);
+          $("filterSaved").setAttribute("aria-pressed", String(savedOnly));
+          $("resultsTitle").textContent = savedOnly
+            ? "Your saved ideas"
+            : "Your brand ideas";
+          $("resultCount").textContent =
+            `${list.length} ${list.length === 1 ? "idea" : "ideas"}`;
+          $("resultsDescription").textContent = savedOnly
+            ? "Your favorite ideas, all in one place."
+            : "A little inspiration for your next big thing.";
+          if (!list.length) {
+            $("resultsGrid").innerHTML =
+              '<div class="empty-state"><svg width="26" height="26" style="margin:auto;color:var(--primary)"><use href="#i-heart"/></svg><h3>No saved ideas yet</h3><p>Tap the heart on an idea to save it for later.</p></div>';
+            return;
+          }
+          $("resultsGrid").innerHTML = list
+            .map((item, index) => {
+              const saved = isFavorite(item.name);
+              return `<article class="idea-card">
+            <div class="card-top">${logoMarkup(item)}<button type="button" class="favorite ${saved ? "is-saved" : ""}" data-action="favorite" data-index="${index}" aria-label="${saved ? "Remove" : "Save"} ${escapeHtml(item.name)} ${saved ? "from" : "to"} favorites" aria-pressed="${saved}"><svg width="19" height="19"><use href="#i-heart"/></svg></button></div>
+            <h3>${escapeHtml(item.name)}</h3><p class="slogan">${escapeHtml(item.slogan)}</p>
+            <div class="card-details">
+              <div class="detail-row"><span class="detail-label">Logo concept</span><span class="detail-value">${escapeHtml(item.concept)}</span></div>
+              <div class="detail-row"><span class="detail-label">Color palette</span><span class="swatches" aria-label="${escapeHtml(item.paletteLabel)}: ${item.palette.join(", ")}">${item.palette.map((color) => `<span class="swatch" style="background:${color}" title="${color}"></span>`).join("")}</span></div>
+              <button type="button" class="copy-button" data-action="copy" data-index="${index}"><svg width="14" height="14"><use href="#i-copy"/></svg> Copy name</button>
+            </div>
+          </article>`;
+            })
+            .join("");
+        }
+        function toast(message) {
+          const el = $("toast");
+          el.textContent = message;
+          el.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => el.classList.remove("show"), 2400);
+        }
+        function generate() {
+          if (loading) return;
+          loading = true;
+          savedOnly = false;
+          $("filterSaved").classList.remove("active");
+          $("filterSaved").setAttribute("aria-pressed", "false");
+          $("resultsTitle").textContent = "Your brand ideas";
+          $("resultCount").textContent = "Generating";
+          $("resultsDescription").textContent =
+            "Finding a little inspiration for you.";
+          $("generateButton").disabled = true;
+          $("refreshButton").disabled = true;
+          $("resultsGrid").setAttribute("aria-busy", "true");
+          $("resultsGrid").innerHTML =
+            '<div class="loading"><span class="spinner"></span><span>Dreaming up your ideas...</span></div>';
+          setTimeout(() => {
+            ideas = makeIdeas();
+            loading = false;
+            $("generateButton").disabled = false;
+            $("refreshButton").disabled = false;
+            $("resultsGrid").setAttribute("aria-busy", "false");
+            render();
+          }, 550);
+        }
+        async function copyText(text) {
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const area = document.createElement("textarea");
+              area.value = text;
+              area.style.position = "fixed";
+              area.style.opacity = "0";
+              document.body.appendChild(area);
+              area.select();
+              const success = document.execCommand("copy");
+              area.remove();
+              if (!success) throw new Error("Copy failed");
+            }
+            toast("Copied to clipboard!");
+          } catch (_) {
+            toast("Couldn’t copy. Please select the name manually.");
+          }
+        }
+        function showSaved() {
+          if (loading) return;
+          savedOnly = true;
+          render();
+          $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        $("generatorForm").addEventListener("submit", (event) => {
+          event.preventDefault();
+          generate();
+        });
+        $("refreshButton").addEventListener("click", generate);
+        $("filterSaved").addEventListener("click", () => {
+          if (!loading) {
+            savedOnly = !savedOnly;
+            render();
+          }
+        });
+        $("headerSaved").addEventListener("click", showSaved);
+        $("resultsGrid").addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-action]");
+          if (!button) return;
+          const list = savedOnly ? favorites : ideas;
+          const item = list[Number(button.dataset.index)];
+          if (!item) return;
+          if (button.dataset.action === "copy") {
+            copyText(item.name);
+            return;
+          }
+          if (isFavorite(item.name)) {
+            favorites = favorites.filter(
+              (saved) =>
+                saved.name.toLocaleLowerCase() !==
+                item.name.toLocaleLowerCase(),
+            );
+            toast("Removed from saved ideas");
+          } else {
+            favorites.unshift(item);
+            toast("Saved to your favorites");
+          }
+          if (!storage.set("brandwell-favorites", favorites))
+            toast("Saved for this session; browser storage is unavailable.");
+          render();
+        });
+        function applyTheme(theme) {
+          document.documentElement.dataset.theme = theme;
+          $("themeIcon").setAttribute(
+            "href",
+            theme === "dark" ? "#i-sun" : "#i-moon",
+          );
+          $("themeToggle").setAttribute(
+            "aria-label",
+            theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+          );
+          document.querySelector('meta[name="theme-color"]').content =
+            theme === "dark" ? "#11131c" : "#f8f9fc";
+        }
+        const storedTheme = storage.get("brandwell-theme", null);
+        applyTheme(
+          storedTheme === "dark" || storedTheme === "light"
+            ? storedTheme
+            : window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light",
+        );
+        $("themeToggle").addEventListener("click", () => {
+          const theme =
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark";
+          applyTheme(theme);
+          storage.set("brandwell-theme", theme);
+        });
+        $("year").textContent = new Date().getFullYear();
+        ideas = makeIdeas();
+        render();
+      })();
+    </script>
+  </body>
+</html>
